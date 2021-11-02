@@ -18,6 +18,7 @@ using System.Security.Policy;
 using System.Text;
 namespace Foundation.Features.FileUploadPage
 {
+    [Route("FileUploadPage")]
     public class FileUploadPageController : PageController<FileUploadPage>
     {
         private readonly IBlobFactory _blobFactory;
@@ -41,7 +42,7 @@ namespace Foundation.Features.FileUploadPage
 
         [HttpPost]
         [Route("Local")]
-        public void FileUploadLocal(IFormFile file)
+        public void FileUploadLocal(IFormFile file, FileUploadPage currentContent)
         {
             
             Console.WriteLine("Start uploading local");
@@ -55,10 +56,11 @@ namespace Foundation.Features.FileUploadPage
 
             Console.WriteLine(pageRouteHelper == null ? "page route helper null" : "page route helper not tull");
 
-            var currentPage = pageRouteHelper.Page;
-            Console.WriteLine(currentPage == null ? "current page null" : "current page not null");
-
-            var file1 = _contentRepository.GetDefault<GenericFile>(_contentAssetHelper.GetOrCreateAssetFolder(currentPage.ContentLink).ContentLink);
+            // var currentPage = pageRouteHelper.Page;
+            
+            
+            Console.WriteLine(currentContent == null ? "current page null" : "current page not null");
+            var file1 = _contentRepository.GetDefault<GenericFile>(_contentAssetHelper.GetOrCreateAssetFolder(currentContent.ContentLink).ContentLink);
             Console.WriteLine(file1 == null ? "file is null" : "file is not null");
             file1.Name = file.FileName;
             var blob = _blobFactory.CreateBlob(file1.BinaryDataContainer, ".txt");

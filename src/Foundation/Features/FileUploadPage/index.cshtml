@@ -4,11 +4,12 @@
 
 <div class="row">
     <div class="col-12">
-        @using (Html.BeginForm("FileUploadLocal", "FileUploadPage", FormMethod.Post, new 
-        { enctype = "multipart/form-data" }))
+        @Html.ActionLink("test","FileUploadLocal", "FileUploadPage");
+        @using (Html.BeginForm("FileUploadLocal", "FileUploadPage", new {currentContent = Model.CurrentContent}, FormMethod.Post, false, new
+        {enctype = "multipart/form-data"}))
         {
             <label>Local:</label>
-            <input type="file" name="file" />
+            <input type="file" name="file"/>
             <input class="btn" type="submit" value="Upload">
         }
     </div>

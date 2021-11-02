@@ -18,6 +18,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Globalization;
+
 namespace Foundation.Infrastructure.Jobs
 {
     [ScheduledPlugIn(DisplayName = "Custom job", Description = "Custom job", SortIndex = 10000)]
@@ -39,14 +41,20 @@ namespace Foundation.Infrastructure.Jobs
         public override string Execute()
         {
             Console.WriteLine("Start");
-            var pages = _contentLoader.GetChildren<CustomPage>(ContentReference.RootPage);
+            var pages = _contentLoader.GetChildren<CustomPage>(ContentReference.StartPage);
+            var pLinks = _contentLoader.GetDescendents(ContentReference.RootPage);
+            var pItems = _contentLoader.GetItems(pLinks, CultureInfo.CurrentCulture);
 
-            Console.WriteLine(pages);
-            foreach (var page in pages)
+            var customPages = new List<CustomPage>();
+            foreach (var item in pItems)
             {
-                Console.WriteLine("Page:" + page.Name, page.ContentLink);
+                Console.WriteLine(@$"{item.GetOriginalType()} = {typeof(CustomPage)}", item.Name, item.ContentGuid);
+                if (item.GetOriginalType() == typeof(CustomPage))
+                {
+                    Console.WriteLine("Vuala");
+                }
             }
-            
+
             return "";
         }
     }

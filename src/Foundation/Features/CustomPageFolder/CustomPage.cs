@@ -22,6 +22,7 @@ namespace Foundation.Features.CustomPageFolder
         public virtual XhtmlString MainBody { get; set; }
 
         [Display(Name = "Top content area", GroupName = SystemTabNames.Content, Order = 90)]
+        
         public virtual ContentArea MainContentArea { get; set; }
         
         [CultureSpecific]

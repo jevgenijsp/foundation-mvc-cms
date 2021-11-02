@@ -19,8 +19,10 @@ namespace Foundation.Features.CustomInitializationModule
         private readonly Lazy<IContentEvents> _contentEvents = new Lazy<IContentEvents>(() => ServiceLocator.Current.GetInstance<IContentEvents>());
         private readonly Lazy<IContentRepository> _contentRepository = new Lazy<IContentRepository>(() => ServiceLocator.Current.GetInstance<IContentRepository>());
 
+        //Injected<>
         public void Initialize(InitializationEngine context)
         {
+            //context.Locate.Advanced.
             Console.WriteLine("Initialize site custom");
 
             //_logger.Log(Level.Information, "Hello on initialize");
